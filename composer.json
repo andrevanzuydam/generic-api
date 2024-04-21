@@ -1,6 +1,7 @@
 {
     "name": "justblink/generic-api",
     "description": "Creates an api, just add orm objects",
+    "license": "MIT",
     "require": {
         "tina4stack/tina4php": "^2.0"
     },
