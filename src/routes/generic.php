@@ -1,10 +1,18 @@
 <?php
+namespace Tina4GenericApi;
+
+use Tina4;
 
 /**
  * @secure
  */
-\Tina4\Get::add("/api/rest/V1/generic/{className}/get-one/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+// @todo look at naming
+// @todo base url should be in env
+// @todo look at api pagination
+\Tina4\Get::add("/api/rest/v1/generic/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Check if the class name provided exists
+    // @todo check if ORM or other class
+    // @todo include methods
     if(class_exists($className)){
         // Get the incoming class
         $class = (new $className());
@@ -16,14 +24,15 @@
             return $response($result, HTTP_OK);
         }
     }
-
+    // @todo uniform responses
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
 
 /**
  * @secure
  */
-\Tina4\Get::add("/api/rest/V1/generic/{className}/get-all", function($className, Tina4\Response $response, Tina4\Request $request){
+// @todo lose the generic and merge in all
+\Tina4\Get::add("/api/rest/v1/generic/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class
@@ -49,7 +58,7 @@
 /**
  * @secure
  */
-\Tina4\Post::add("/api/rest/V1/generic/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Post::add("/api/rest/v1/generic/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class
@@ -64,3 +73,9 @@
 
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
+
+//@todo how do we do patch and delete
+//@todo how do we deal with overwrites
+//@todo how do we expose events that allow before and after changes.
+
+//@todo simple cross table linking

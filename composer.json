@@ -1,4 +1,6 @@
 {
+    "name": "justblink/generic-api",
+    "description": "Creates an api, just add orm objects",
     "require": {
         "tina4stack/tina4php": "^2.0"
     },
@@ -11,13 +13,13 @@
         "start": "@tina4 webservice:run",
         "start-service": "@tina4service"
     },
-    "classmap": [
-        "src/*",
-        "src/app/*",
-        "src/orm/*",
-        "src/routes/*"
-    ],
     "autoload": {
+        "classmap": [
+            "src/*"
+        ],
+        "files": [
+            "loadModule.php"
+        ],
         "psr-4": {
             "\\": [
                 "src/",
