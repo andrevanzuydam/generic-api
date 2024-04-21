@@ -21,13 +21,11 @@ use Tina4;
     if(class_exists($className)){
         // Get the incoming class
         $class = (new $className());
-        // Check the class allows the generic usage
-        if(isset($class->virtualFields["generic"]) && $class->virtualFields["generic"]){
-            // Load the class
-            $result = $class->load("id = ?", [$id]);
 
-            return $response($result, HTTP_OK);
-        }
+        // Load the class
+        $result = $class->load("id = ?", [$id]);
+
+        return $response($result, HTTP_OK);
     }
     // @todo uniform responses
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
@@ -40,19 +38,17 @@ use Tina4;
     if(class_exists($className)){
         // Get the incoming class
         $class = (new $className());
-        // Check the class allows the generic usage
-        if(isset($class->virtualFields["generic"]) && $class->virtualFields["generic"]){
-            // Set the limits
-            $limit = 10;
-            $offset = 0;
-            if(isset($request->params["limit"]) && isset($request->params["offset"])){
-                $limit = min($request->params["limit"],10);
-                $offset = $request->params["offset"];
-            }
-            $result = $class->select("*", $limit, $offset)->asObject();
 
-            return $response($result, HTTP_OK);
+        // Set the limits
+        $limit = 10;
+        $offset = 0;
+        if(isset($request->params["limit"]) && isset($request->params["offset"])){
+            $limit = min($request->params["limit"],10);
+            $offset = $request->params["offset"];
         }
+        $result = $class->select("*", $limit, $offset)->asObject();
+
+        return $response($result, HTTP_OK);
     }
 
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
@@ -63,12 +59,12 @@ use Tina4;
     if(class_exists($className)){
         // Get the incoming class
         $class = (new $className($request));
-        // Check the class allows the generic usage
-        if(isset($class->virtualFields["generic"]) && $class->virtualFields["generic"]){
-            $result = $class->save()->asObject();
 
-            return $response($result, HTTP_OK);
-        }
+        // Save the object based on the request
+        // @todo probably need some validation here
+        $result = $class->save()->asObject();
+
+        return $response($result, HTTP_OK);
     }
 
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
