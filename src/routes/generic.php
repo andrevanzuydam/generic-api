@@ -15,6 +15,8 @@ use Tina4;
 
 // @todo look at api pagination
 \Tina4\Get::add($_ENV["JB_GABI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+    // Deal with any incoming - class names
+    $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
     // @todo check if ORM or other class
     // @todo include methods
@@ -32,8 +34,9 @@ use Tina4;
 });
 
 
-// @todo lose the generic and merge in all
 \Tina4\Get::add($_ENV["JB_GABI_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
+    // Deal with any incoming - class names
+    $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class
@@ -55,6 +58,8 @@ use Tina4;
 });
 
 \Tina4\Post::add($_ENV["JB_GABI_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
+    // Deal with any incoming - class names
+    $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class

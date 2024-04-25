@@ -26,3 +26,10 @@ Insert a row - POST `/[class name]`
 Update a row - POST `/[class name]/{id}`
 
 Delete a row - DELETE `/[class name/{id}`
+
+## Class names
+
+Class names should be supplied lower case. Complex class names should be separated by "-".
+
+For example:
+`my-class-name` will resolve to `MyClassName` in the ORM.
