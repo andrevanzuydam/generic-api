@@ -32,4 +32,4 @@ Delete a row - DELETE `/[class name/{id}`
 Class names should be supplied lower case. Complex class names should be separated by "-".
 
 For example:
-`my-class-name` will resolve to `MyClassName` in the ORM.
+`/my-class-name` will resolve to `MyClassName` in the ORM.
