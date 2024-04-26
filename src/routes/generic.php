@@ -63,7 +63,7 @@ use Tina4;
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class
-        $class = (new $className($request));
+        $class = (new $className($request->data));
 
         // Save the object based on the request
         // @todo probably need some validation here
