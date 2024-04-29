@@ -5,13 +5,19 @@ class names are used as the api endpoint names. The Api comes with built in secu
 
 ## Installation
 
-`composer require justblink/generic-api`
+`composer require justblink/generic-api` This will also install Tina4 as a dependency.
+
+Initialize Tina 4
+
+`composer exec tina4 initialize:run`
 
 ## Setup
 
-Please add the following to the .env file.
+Please add the following to the .env file and set as desired
 
-`JB_GAPI_BASE_URL=` *Default = ''*
+*Adds to the url between domain name and generic-api routes*
+
+`JB_GAPI_BASE_URL=`
 
 ## Simple endpoints
 

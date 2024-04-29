@@ -75,15 +75,37 @@ use Tina4;
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
 
+\Tina4\Patch::add($_ENV["JB_GABI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+    // Deal with any incoming - class names
+    $className = RoutingHelper::pascalCase($className);
+    // Check if the class name provided exists
+    if(class_exists($className)){
+        // Get the incoming class
+        $class = (new $className())->load("id = ?", [$id]);
+        foreach ($class as $property => $value){
+            if(isset($request->data->{$property})){
+                $class->{$property} = $request->data->{$property};
+            }
+        }
+
+        // @todo probably need some validation here
+        $result = $class->save();
+
+        return $response($result, HTTP_OK);
+    }
+
+    return $response("This request was not a valid request", HTTP_BAD_REQUEST);
+});
+
 \Tina4\Delete::add($_ENV["JB_GABI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
     if(class_exists($className)){
         // Get the incoming class
-        $class = (new $className($request));
+        $class = (new $className());
 
-        // Save the object based on the request
+        // Delete the object based on the request
         // @todo probably need some validation here
         $result = $class->delete("id = ?", [$id]);
 
