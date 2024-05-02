@@ -80,18 +80,13 @@ use Tina4;
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
     if(class_exists($className)){
-        // Get the incoming class
         $class = (new $className())->load("id = ?", [$id]);
-        foreach ($class as $property => $value){
-            if(isset($request->data->{$property})){
-                $class->{$property} = $request->data->{$property};
-            }
+
+        $class = (new ValidationHelper())->loadClass($class, $request->data);
+        if($class){
+            $result = $class->save();
+            return $response($result, HTTP_OK);
         }
-
-        // @todo probably need some validation here
-        $result = $class->save();
-
-        return $response($result, HTTP_OK);
     }
 
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
