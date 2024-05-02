@@ -39,3 +39,15 @@ Class names should be supplied lower case. Complex class names should be separat
 
 For example:
 `/my-class-name` will resolve to `MyClassName` in the ORM.
+
+## Validation
+
+Adding a JbGapiValidation attribute to the ORM will invoke the built in validation. For example this will check if firstName
+is a string.
+
+```
+#[JbGapiValidation('string')]
+public firstName;
+```
+
+By extending the ValidationHelper one can write the extraValidate() function to do custom or extend existing validation. 
