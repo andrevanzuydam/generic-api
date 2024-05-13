@@ -1,9 +1,9 @@
 <?php
-namespace Tina4GenericApi;
+namespace GenericApi;
 
 use Tina4;
 
-\Tina4\Get::add($_ENV["JB_GAPI_BASE_URL"] . "/ping", function(Tina4\Response $response){
+\Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/ping", function(Tina4\Response $response){
     $version = [
         "name" => "generic-api",
         "version" => "v0.0.1-alpha"
@@ -14,7 +14,7 @@ use Tina4;
 // @todo look at naming
 
 // @todo look at api pagination
-\Tina4\Get::add($_ENV["JB_GAPI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
@@ -34,7 +34,7 @@ use Tina4;
 });
 
 
-\Tina4\Get::add($_ENV["JB_GAPI_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
@@ -57,7 +57,7 @@ use Tina4;
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
 
-\Tina4\Post::add($_ENV["JB_GAPI_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Post::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
@@ -75,7 +75,7 @@ use Tina4;
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
 
-\Tina4\Patch::add($_ENV["JB_GAPI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Patch::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists
@@ -92,7 +92,7 @@ use Tina4;
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
 });
 
-\Tina4\Delete::add($_ENV["JB_GAPI_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
+\Tina4\Delete::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
     // Check if the class name provided exists

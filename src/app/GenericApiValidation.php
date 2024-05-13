@@ -1,8 +1,8 @@
 <?php
-namespace Tina4GenericApi;
+namespace GenericApi;
 
 #[\Attribute(\Attribute::TARGET_PROPERTY | \Attribute::IS_REPEATABLE)]
-class JbGapiValidation {
+class GenericApiValidation {
     public string $rule;
 
     public function __construct(string $rule) {

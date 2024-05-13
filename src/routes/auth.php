@@ -1,5 +1,5 @@
 <?php
-namespace Tina4GenericApi;
+namespace GenericApi;
 
 use Tina4;
 

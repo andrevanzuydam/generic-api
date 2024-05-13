@@ -1,6 +1,6 @@
 <?php
 
-namespace Tina4GenericApi;
+namespace GenericApi;
 
 class ValidationHelper
 {
@@ -9,7 +9,7 @@ class ValidationHelper
         $properties = $reflectionClass->getProperties();
         foreach ($properties as $property) {
             // Check if the ORM is using the validation
-            $attributes = $property->getAttributes(JbGapiValidation::class);
+            $attributes = $property->getAttributes(GenericApiValidation::class);
             foreach($attributes as $attribute){
                 $attributeName = $attribute->newInstance()->rule;
                 if(!$this->validate($attributeName, $class->{$property->name})){
