@@ -82,7 +82,7 @@ use Tina4;
     if(class_exists($className)){
         $class = (new $className())->load("id = ?", [$id]);
 
-        $class = (new ValidationHelper())->loadClass($class, $request->data);
+        $class = (new ClassHelper())->loadClass($class, $request->data);
         if($class){
             $result = $class->save();
             return $response($result, HTTP_OK);
