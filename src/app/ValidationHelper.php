@@ -2,54 +2,63 @@
 
 namespace GenericApi;
 
-class ValidationHelper
-{
-    public function loadClass($class, $newData){
-        $reflectionClass = (new \ReflectionClass($class));
-        $properties = $reflectionClass->getProperties();
-        foreach ($properties as $property) {
-            // Check if the ORM is using the validation
-            $attributes = $property->getAttributes(GenericApiValidation::class);
-            foreach($attributes as $attribute){
-                $attributeName = $attribute->newInstance()->rule;
-                if(!$this->validate($attributeName, $class->{$property->name})){
 
-                    return false;
-                }
+class ValidationHelper implements ValidationInterface
+{
+    /**
+    * @inheritDoc
+     */
+    public function validate(string $attribute, $value, $error = ""): array
+    {
+        try {
+            $result = $this->beforeValidate($attribute, $value);
+            if($result["valid"]){
+                $value = $result["value"];
+            } else {
+
+                return ["valid" => false, "value" => "The {$attribute} test failed in the beforeValidate function."];
             }
-            // @todo protect overwriting of Tina4 properties
-            if(isset($newData->{$property->name})){
-                $class->{$property->name} = $newData->{$property->name};
-            }
+        } catch (\Exception $e) {
+            return ["valid" => false, "value" => "Fatal error in the beforeValidate function while testing {$attribute}."];
         }
 
-        return $class;
-    }
-    
-    private function validate($attribute, $value){
-        $valid = true;
+
         switch ($attribute){
             case "integer":
                 break;
             default:
                 break;
         }
-        // Allow for custom validations
-        if($valid){
-            $valid = $this->extraValidate($attribute, $value);
+
+        try {
+            $result = $this->afterValidate($attribute, $value);
+            if($result["valid"]){
+                $value = $result["value"];
+            } else {
+
+                return ["valid" => false, "value" => "The {$attribute} test failed in the afterValidate function."];
+            }
+        } catch (\Exception $e) {
+            return ["valid" => false, "value" => "Fatal error in the afterValidate function while testing {$attribute}."];
         }
 
-        return $valid;
+        return ["valid" => true, "value" => $value];
     }
 
     /**
-     * By extending this class, this function allows both custom validation and validation extensions.
-     * @param string $attribute
-     * @param $value
-     * @return bool
+     * @inheritDoc
      */
-    private function extraValidate(string $attribute, $value): bool
+    public function beforeValidate(string $attribute, $value, $error = ""): array
     {
-        return true;
+        return ["valid" => true, "value" => $value];
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function afterValidate(string $attribute, $value, $error = ""): array
+    {
+        return ["valid" => true, "value" => $value];
+    }
+
 }

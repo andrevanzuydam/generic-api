@@ -23,6 +23,8 @@ Please add the following to the .env file and set as desired
 
 All ORM objects should have a primary key `id`.
 
+All endpoints can be extended with a prefix set in the .env file by setting the flag GENERIC_API_BASE_URL
+
 Get all rows - GET `/[class name]`
 
 Get one row - GET `/[class name]/{id}`
@@ -42,12 +44,14 @@ For example:
 
 ## Validation
 
-Adding a JbGapiValidation attribute to the ORM will invoke the built in validation. For example this will check if firstName
-is a string.
+Adding a GenericApiValidation attribute to the ORM will invoke the built in validation. For example this will check if 
+firstName is a string.
 
 ```
-#[JbGapiValidation('string')]
+#[GenericApiValidation('string')]
 public firstName;
 ```
 
-By extending the ValidationHelper one can write the extraValidate() function to do custom or extend existing validation. 
+By extending the ValidationHelper one can write custom validations or manipulate values before or after the normal validations, 
+by using the beforeValidate() and afterValidate() functions. Each one has the ability to return if the validation was correct, 
+the value as is (including manipulations), and an error message if required. 
