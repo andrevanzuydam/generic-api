@@ -13,7 +13,8 @@ class ClassHelper
             foreach($attributes as $attribute){
                 $attributeName = $attribute->newInstance()->rule;
                 // @todo implement the error messaging coming back from validate
-                if((new ValidationHelper())->validate($attributeName, $class->{$property->name})){
+                $result = (new ValidationHelper())->validate($attributeName, $class->{$property->name});
+                if(!$result["valid"]){
 
                     return false;
                 }
