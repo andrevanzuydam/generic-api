@@ -3,7 +3,7 @@
 namespace GenericApi;
 
 
-class ValidationHelper
+class ValidationHelper implements ValidationInterface
 {
     /**
     * @inheritDoc
