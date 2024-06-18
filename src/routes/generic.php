@@ -78,15 +78,14 @@ use Tina4;
 \Tina4\Patch::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
+    // new code
+    $class = (new ClassHelper())->patchClass($className, $id, $request->data);
+    // end new code
     // Check if the class name provided exists
-    if(class_exists($className)){
-        $class = (new $className())->load("id = ?", [$id]);
-
-        $class = (new ClassHelper())->loadClass($class, $request->data);
-        if($class){
-            $result = $class->save();
-            return $response($result, HTTP_OK);
-        }
+    if($class)
+    {
+        $result = $class->save();
+        return $response($result, HTTP_OK);
     }
 
     return $response("This request was not a valid request", HTTP_BAD_REQUEST);
