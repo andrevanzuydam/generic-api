@@ -17,7 +17,12 @@ Please add the following to the .env file and set as desired
 
 *Adds to the url between domain name and generic-api routes*
 
-`JB_GAPI_BASE_URL=`
+`GENERIC_API_BASE_URL=`
+
+## Security
+
+All endpoints are protected with the Tina4 `@secure` route protection. However please ensure that you have added security
+to your satisfaction.
 
 ## Simple endpoints
 
