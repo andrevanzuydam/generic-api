@@ -59,4 +59,8 @@ public firstName;
 
 By extending the ValidationHelper one can write custom validations or manipulate values before or after the normal validations, 
 by using the beforeValidate() and afterValidate() functions. Each one has the ability to return if the validation was correct, 
-the value as is (including manipulations), and an error message if required. 
+the value as is (including manipulations), and an error message if required.
+
+## Testing
+
+There is a simple test application built around generic-api and can be found at CrisHigham/generic-api-example. This was built as the base for a postman testing suite and can be used as a base project at your own risk.
