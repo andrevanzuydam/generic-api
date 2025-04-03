@@ -4,11 +4,13 @@ namespace GenericApi;
 use Tina4;
 
 /**
+ * Route used to ensure that the generic api is up and running
  * @secure
  */
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/ping", function(Tina4\Response $response){
     $version = [
-        "name" => "generic-api"
+        "name" => "generic-api",
+        "version" => "0.0.2-alpha"
     ];
     return $response($version, HTTP_OK, APPLICATION_JSON);
 });
@@ -16,6 +18,10 @@ use Tina4;
 // @todo look at naming
 
 // @todo look at api pagination
+/**
+ * Route to return a single record by id
+ * @secure
+ */
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
     // Deal with any incoming - class names
     $className = RoutingHelper::pascalCase($className);
@@ -36,6 +42,7 @@ use Tina4;
 });
 
 /**
+ * Route to return records of an class
  * @secure
  */
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
@@ -62,6 +69,7 @@ use Tina4;
 });
 
 /**
+ * Route to create a record of a specific class
  * @secure
  */
 \Tina4\Post::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
@@ -83,6 +91,7 @@ use Tina4;
 });
 
 /**
+ * Route to update a single record of a class
  * @secure
  */
 \Tina4\Patch::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
@@ -102,6 +111,7 @@ use Tina4;
 });
 
 /**
+ * Route to delete a single record of a class
  * @secure
  */
 \Tina4\Delete::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}/{id}", function($className, $id, Tina4\Response $response, Tina4\Request $request){
