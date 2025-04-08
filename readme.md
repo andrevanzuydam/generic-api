@@ -30,6 +30,8 @@ All ORM objects should have a primary key `id`.
 
 All endpoints can be extended with a prefix set in the .env file by setting the flag GENERIC_API_BASE_URL
 
+Ping is an api verificaion endpoing `/ping`
+
 Get all rows - GET `/[class name]`
 
 Get one row - GET `/[class name]/{id}`

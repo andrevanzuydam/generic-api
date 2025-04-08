@@ -10,7 +10,7 @@ use Tina4;
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/ping", function(Tina4\Response $response){
     $version = [
         "name" => "generic-api",
-        "version" => "0.0.2-alpha"
+        "version" => "0.0.3"
     ];
     return $response($version, HTTP_OK, APPLICATION_JSON);
 });
@@ -42,7 +42,7 @@ use Tina4;
 });
 
 /**
- * Route to return records of an class
+ * Route to return records of a class
  * @secure
  */
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/{className}", function($className, Tina4\Response $response, Tina4\Request $request){
