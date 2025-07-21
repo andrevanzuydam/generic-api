@@ -10,14 +10,13 @@ use Tina4;
 \Tina4\Get::add($_ENV["GENERIC_API_BASE_URL"] . "/ping", function(Tina4\Response $response){
     $version = [
         "name" => "generic-api",
-        "version" => "0.0.3"
+        "version" => "0.0.4"
     ];
     return $response($version, HTTP_OK, APPLICATION_JSON);
 });
 
 // @todo look at naming
 
-// @todo look at api pagination
 /**
  * Route to return a single record by id
  * @secure
@@ -55,9 +54,11 @@ use Tina4;
 
         // Set the limits
         $limit = 10;
+        if(isset($request->params["limit"])){
+            $limit = $request->params["limit"];
+        }
         $offset = 0;
-        if(isset($request->params["limit"]) && isset($request->params["offset"])){
-            $limit = min($request->params["limit"],10);
+        if(isset($request->params["offset"])){
             $offset = $request->params["offset"];
         }
         $result = $class->select("*", $limit, $offset)->asObject();
