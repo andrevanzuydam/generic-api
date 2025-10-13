@@ -62,7 +62,11 @@ use Tina4;
             $offset = $request->params["offset"];
         }
 
-        $where = FilterHelper::buildFilterClause($class->fieldMapping, $request->params);
+        if (!empty($class->fieldMapping)) {
+            $where = FilterHelper::buildFilterClause($class->fieldMapping, $request->params);
+        } else {
+            $where = ["sql" => ""];
+        }
 
         // build return object
         $result = (new \stdClass());
